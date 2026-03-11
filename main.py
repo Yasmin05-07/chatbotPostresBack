@@ -69,7 +69,7 @@ async def chat(request: ChatRequest):
     
     try:
         completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant", 
+            model="llama-3.3-70b-versatile", 
             messages=[
                 {"role": "system", "content": prompt_sistema},
                 {"role": "user", "content": request.message}
