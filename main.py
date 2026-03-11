@@ -52,9 +52,7 @@ class ChatRequest(BaseModel):
 # 3. Endpoint principal del Chat
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    
-    # REDUCIDO A 12,000 para evitar el error 429 de Rate Limit
-    # Esto asegura que la consulta no pese tanto en tokens
+
     contexto_limitado = CONOCIMIENTO_POSTRES[:12000] 
 
     prompt_sistema = f"""
@@ -70,9 +68,8 @@ async def chat(request: ChatRequest):
     """
     
     try:
-        # CAMBIADO A LLAMA-3-8B: Es más rápido y tiene límites de cuota menos estrictos
         completion = client.chat.completions.create(
-            model="llama3-8b-8192", 
+            model="llama-3.1-8b-instant", 
             messages=[
                 {"role": "system", "content": prompt_sistema},
                 {"role": "user", "content": request.message}
